@@ -7,13 +7,10 @@
                     <img src="../../static/images/fenpei.png" alt="">
                     <p>分配管理</p>
                 </div>
-                <el-col style="width:100%;margin-top:150px;">
-                    <el-menu
-                    default-active="2"
-                    class="el-menu-vertical-demo"
-                   >
+                <el-col style="width:100%;margin-top:150px;" class="menu_list">
+                    <el-menu default-active="2" class="el-menu-vertical-demo">
                     <el-submenu index="1">
-                        <template slot="title">
+                        <template slot="title" class="list">
                         <span class=""></span>
                         <span>导航一</span>
                         </template>
@@ -22,18 +19,18 @@
                         <el-menu-item index="1-2">选项2</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">导航二</span>
-                    </el-menu-item>
-                    <el-menu-item index="3" disabled>
-                        <i class="el-icon-document"></i>
-                        <span slot="title">导航三</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
-                    </el-menu-item>
+                    <el-submenu index="2">
+                        <template slot="title">
+                        <span class=""></span>
+                        <span>导航er</span>
+                        </template>
+                        <el-menu-item-group>
+                        <el-menu-item index="1-1">选项1</el-menu-item>
+                        <el-menu-item index="1-2">选项2</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    
+                   
                     </el-menu>
                 </el-col>
             </div>
@@ -107,8 +104,18 @@ export default {
                     margin-top: 10px;
                 }
             }
-            el-col {
-
+            .menu_list .el-submenu__title{
+                height: 42px;
+                line-height: 42px;
+            }
+            .menu_list .el-submenu__title>span:first-child{
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                float: left;
+                margin-top: 11px;
+                margin-right: 10px;
+                background: url('../../static/images/fangzi.png') no-repeat left center;
             }
         }
 
@@ -127,5 +134,9 @@ export default {
 }
 .clearfix {
 	zoom: 1;
+}
+.el-submenu__title{
+    height: 42px;
+    line-height: 42px;
 }
 </style>
