@@ -1,0 +1,75 @@
+/*初始化*/
+*{
+	 -moz-box-sizing: border-box;  
+     -webkit-box-sizing: border-box; 
+     -o-box-sizing: border-box; 
+     -ms-box-sizing: border-box; 
+     box-sizing: border-box; 
+}
+html,body{
+	height: 100%;
+	position: relative;
+	z-index: -2;
+}
+body,ul,h1,h2,h3,h4,h5,h6,p,input,button,dl,dt,dd,form{
+	margin: 0;
+	padding: 0;
+}
+li{
+	list-style: none;
+}
+h1,h2,h3,h4,h5,h6{
+	font-weight: 400;
+}
+a{
+	text-decoration: none;
+	color: #666;
+}
+a:hover{
+	color: #f10215;
+}
+img{
+	border: 0 none;
+	vertical-align: middle;
+}
+input,button{
+	border: 0 none;
+	outline-style: none;
+	vertical-align: middle;
+}
+body{
+	font:12px arial,"microsoft yahei";
+	color: #666;
+}
+.fl{
+	float: left;
+}
+.fr{
+	float: right;
+}
+.textl{text-align: left;}
+.textc{text-align: center;}
+.textr{text-align: right;}
+.textl.pl{padding-left: 5px;}
+.textr.pr{padding-right: 5px;}
+.clearfix:before,.clearfix:after {
+	content: "";
+	display: table;
+	clear: both;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.clearfix:after {
+	clear: both;
+}
+.clearfix {
+	zoom: 1;
+}
+.w{
+	width: 94%;
+	margin: 0 auto;
+	min-width: 1200px;
+	padding-top: 80px;
+}
+

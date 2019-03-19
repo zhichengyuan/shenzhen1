@@ -4,8 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui';
+import axios from "axios";
+import PubSub from "pubsub-js";
 import 'element-ui/lib/theme-chalk/index.css';
-
+import '../static/css/reset.css' /*引入公共样式*/
+Vue.prototype.$axios = axios;
 Vue.use(ElementUI);
 
 Vue.config.productionTip = false
