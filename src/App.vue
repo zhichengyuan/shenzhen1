@@ -15,25 +15,9 @@ export default {
     }
   },
   mounted:function (){
-        this.batchGet();
   },
   methods: {
-      //请求批次列表
-        batchGet() {
-            var that = this;
-            this.$axios({
-                method: 'get',
-                url: "http://193.112.22.34:8480/phbip_mock/choose_house/batch/list",
-                data: {},
-            })
-            .then(function (response) {
-                console.log(response);
-                
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
-        },
+     
   },
   components:{
               Pop:Pop

@@ -1,7 +1,7 @@
 <template>
 <div id="list">
     <!-- 搜索框开始 -->
-     价格：{{price}}
+     价格：{{price}}--{{noPop}}
     <div class="search_box">
         <ul class="search clearfix">
             <li style="width:30%">
@@ -81,7 +81,7 @@
                             <template slot-scope="scope">
                                 <span class="green" v-if="scope.row.status == 0">待选房</span>
                                 <span class="blue" v-else-if= "scope.row.status == 1">正在选房</span>
-                                <span class="red" v-else = "scope.row.status == 2" style="color:red;">结束选房</span>
+                                <span class="red" v-else style="color:red;">结束选房</span>
                             </template>
                             </el-table-column>
                         </el-table>
@@ -107,7 +107,7 @@
         </el-form>
         <div slot="footer" class="dialog-footer">
             <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+            <el-button type="primary" @click="queding">确 定</el-button>
         </div>
         </el-dialog>
 </div>
@@ -126,7 +126,7 @@ import {mapState,mapGetters,mapActions}	from 'vuex'
         value: '',
         value1: '',
         tableData:'',
-        class:['green','orange','blue'],
+        batchList:[],
         pickerOptions1: {
           disabledDate(time) {
             return time.getTime() > Date.now();
@@ -162,10 +162,10 @@ import {mapState,mapGetters,mapActions}	from 'vuex'
       
       };
     },
-  
     computed:{
 		...mapState({
-			 price:state => state.price
+             price:state => state.price,
+             noPop:state => state.noPop
 		})
 	},
     methods: {
@@ -185,6 +185,23 @@ import {mapState,mapGetters,mapActions}	from 'vuex'
                 console.log(error);
             })
         },
+         //请求批次列表
+        batchGet() {
+            var that = this;
+            this.$axios({
+                method: 'get',
+                url: "http://193.112.22.34:8480/phbip_mock/choose_house/batch/list",
+                data: {},
+            })
+            .then(function (response) {
+                console.log(response);
+                this.batchList = response.data.data
+                
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        },
         //点击增加场次
         sendMsgIoParent(){
             this.$emit('listenToChildEvent','this message is from child');
@@ -192,6 +209,11 @@ import {mapState,mapGetters,mapActions}	from 'vuex'
             // PubSub.subscribe("delTodo",(msg,index) => {
             //     this.delTodo(index);
             // })
+        },
+        //点击确定
+        queding(){
+            this.dialogFormVisible = false;
+            this.count();
         },
          loadAll() {
         return [
@@ -260,10 +282,14 @@ import {mapState,mapGetters,mapActions}	from 'vuex'
       },
       handleSelect(item) {
         console.log(item);
-      }
+      },
+      count() {
+			this.$store.commit('is_pop');
+		}
     },
     mounted() {
-        this.show()  
+        this.show();
+        this.batchGet(); 
         this.restaurants = this.loadAll();
     }
     
@@ -352,7 +378,10 @@ import {mapState,mapGetters,mapActions}	from 'vuex'
             background: #fff;
             height: 550px;
             .el-table /deep/ .cell{
-                line-height: 12px;
+                line-height: 20px;
+            }
+            .el-table /deep/ td{
+                padding:5px 0;
             }
             p{
                 height: 34px;
@@ -373,7 +402,7 @@ import {mapState,mapGetters,mapActions}	from 'vuex'
                     border-left: 1px solid #e9e9e9;
                 }
                 ul>li:first-child {
-                    background: #f2f2f2;
+                    background-color: #f2f2f2;
                 }
                 ul>li>ol{
                     height: 40px;

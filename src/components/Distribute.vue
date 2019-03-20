@@ -1,6 +1,6 @@
 <template>
     <div class="distribute clearfix" id="distribute">
-        价格：{{price}}<button @click="count">add</button>
+        价格：{{price}}--{{noPop}}<button @click="count">add</button>
        <!-- 左边导航开始 -->
         <div class="left_content">
             <div class="left_content_header">
@@ -39,10 +39,10 @@
             </h2>
             <!-- 右侧头部tab切换结束 -->
             <!-- 右侧列表模板 -->
-            <List ></List>
+            <List v-if="noPop != true"></List>
             <!-- 右侧列表模板结束 -->
             <!-- 场次 -->
-            <!-- <Games></Games> -->
+            <Games v-else></Games>
             <!-- 场次结束 -->
        </div>
        <!-- 右边内容区域结束 -->
@@ -149,7 +149,8 @@ export default {
     computed:{
     ...mapState({
        price:state => state.price,
-       num:state => state.num
+       num:state => state.num,
+       noPop:state => state.noPop
     })
   },
     components:{
