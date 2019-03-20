@@ -1,5 +1,6 @@
 <template>
     <div class="distribute clearfix" id="distribute">
+        价格：{{price}}<button @click="count">add</button>
        <!-- 左边导航开始 -->
         <div class="left_content">
             <div class="left_content_header">
@@ -38,15 +39,22 @@
             </h2>
             <!-- 右侧头部tab切换结束 -->
             <!-- 右侧列表模板 -->
-            <List v-on:listenToChildEvent="getValue"></List>
+            <List ></List>
             <!-- 右侧列表模板结束 -->
+            <!-- 场次 -->
+            <!-- <Games></Games> -->
+            <!-- 场次结束 -->
        </div>
        <!-- 右边内容区域结束 -->
+       <!-- <Pop></Pop> -->
     </div>
 </template>
 
 <script>
-import List from '@/components/list'
+ import List from '@/components/list'
+ import Pop from '@/components/pop'
+ import Games from '@/components/games'
+ import {mapState,mapGetters,mapActions} from 'vuex'
 export default {
     data(){
         return{
@@ -129,12 +137,25 @@ export default {
             // PubSub.subscribe("deleteTodo",(messageName, todosIndex)=>{
             //         console.log(123443);
             //         this.deleteTodo(todosIndex);
-
             // });
-        }
+        },
+        showMsgFromChild(data){
+            // console.log(data);
+        },
+        count() {
+			this.$store.commit('count_fn');
+		}
     },
+    computed:{
+    ...mapState({
+       price:state => state.price,
+       num:state => state.num
+    })
+  },
     components:{
                 List:List,
+                Pop:Pop,
+                Games:Games
         }
 }
 </script>
@@ -171,25 +192,37 @@ export default {
                 }
             }
             .menu_list {
-                .is-opened .el-submenu__title {
-                    border:2px solid black!important;
+
+                .el-menu /deep/ .is-opened .el-submenu__title {
+                    border-right:4px solid rgb(49, 193, 248)!important;
+                    background-color: #ecf5ff;
+                    color: rgb(49, 193, 248);
+                    i{
+                        color: #ecf5ff;
+                    }
                 }
-                .el-submenu .el-menu-item {
+                .el-menu /deep/ .el-submenu__title:hover{
+                    color: rgb(49, 193, 248);
+                }
+                .el-submenu /deep/ .el-menu-item {
                     height: 42px;
                     line-height: 42px;
                     padding: 0 45px;
                     min-width: 200px;
                 }
-                .el-submenu__title{
+                .el-submenu /deep/ .el-submenu__title{
                     height: 42px;
                     line-height: 42px;
+                }
+                .el-submenu /deep/ .el-menu-item-group__title{
+                    padding:0;
                 }
                 .el-submenu__title>span:first-child{
                     display: inline-block;
                     width: 20px;
                     height: 20px;
                     float: left;
-                    margin-top: 18px;
+                    margin-top: 11px;
                     margin-right: 10px;
                     background: url('../../static/images/fangzi.png') no-repeat left center;
                 }
@@ -299,26 +332,12 @@ export default {
         height: 42px;
         line-height: 42px;
     }
-    .is-opened .el-submenu__title {
-                    border-right:4px solid rgb(49, 193, 248)!important;
-                    background-color: #ecf5ff;
-                    color: rgb(49, 193, 248);
-                    i{
-                        color: #ecf5ff;
-                    }
-                }
-    .menu_list .el-submenu .el-menu-item {
-        height: 42px;
-        line-height: 42px;
-        padding: 0 45px;
-        min-width: 200px;
-    }
+    
+   
     .el-submenu__icon-arrow{
         z-index: -2;
     }
-    .el-submenu__title:hover{
-        color: rgb(49, 193, 248);
-    }
+    
     .el-menu-item-group__title{
         padding:0;
     }
