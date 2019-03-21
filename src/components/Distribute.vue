@@ -1,6 +1,5 @@
 <template>
     <div class="distribute clearfix" id="distribute">
-        价格：{{price}}--{{noPop}}<button @click="count">add</button>
        <!-- 左边导航开始 -->
         <div class="left_content">
             <div class="left_content_header">
@@ -19,12 +18,6 @@
                         <el-menu-item :index="item.index" v-for="(item,index)  in item.menuList" :key="index"><span class="dian"></span>{{item.name}}</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    
-                    <!-- <el-submenu v-for="(item,index)  in menus" :key="index" index="1">
-                        <div>{{index}}---{{item.menuName}}</div>
-                    </el-submenu> -->
-        
-                   
                     </el-menu>
                 </el-col>
             </div>
@@ -34,16 +27,14 @@
        <div class="right_content">
            <!-- 右侧头部tab切换 -->
             <h2>
-                <p class="active"><span>选房管理</span><span class="close_tab"></span></p>
-                <p class="" style="display:none"><span>场次号</span><span class="close_tab"></span></p>
+                <p :class="noPop?classB:classA"> <router-link :to="{path: '/list', query:{}}"><span @click="count">选房管理</span></router-link><span class="close_tab"></span></p>
+                <p :class="noPop?classA:classB" style="" v-if="noPop"><span>场次号</span><router-link :to="{path: '/list', query:{}}"><span class="close_tab" @click="count"></span></router-link></p>
             </h2>
             <!-- 右侧头部tab切换结束 -->
             <!-- 右侧列表模板 -->
-            <List v-if="noPop != true"></List>
+            <router-view/>
             <!-- 右侧列表模板结束 -->
-            <!-- 场次 -->
-            <Games v-else></Games>
-            <!-- 场次结束 -->
+           
        </div>
        <!-- 右边内容区域结束 -->
        <!-- <Pop></Pop> -->
@@ -51,13 +42,14 @@
 </template>
 
 <script>
- import List from '@/components/list'
- import Pop from '@/components/pop'
- import Games from '@/components/games'
+
  import {mapState,mapGetters,mapActions} from 'vuex'
 export default {
+    name:'distribute',
     data(){
         return{
+            classA:'active',
+            classB:'',
             iframeState:false,
             active:'',
             webAddress:[],
@@ -143,7 +135,7 @@ export default {
             // console.log(data);
         },
         count() {
-			this.$store.commit('count_fn');
+			 this.$store.commit('is_pop');
 		}
     },
     computed:{
@@ -153,11 +145,6 @@ export default {
        noPop:state => state.noPop
     })
   },
-    components:{
-                List:List,
-                Pop:Pop,
-                Games:Games
-        }
 }
 </script>
 
@@ -288,6 +275,7 @@ export default {
                     font-size: 12px;
                     text-align: center;
                     color: #4b7ff8;
+                    width: 50px;
                 }
                 .right_content h2 p span:first-child {
                     width: 60px;

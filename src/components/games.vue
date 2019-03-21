@@ -17,7 +17,7 @@
                             <li style="width:37%">
                                 <span style="width:23%">批次全称</span>
                                 <div style="width:70%;position:relative" >
-                                    <input type="text" name="batchName" id="batchName" readonly="readonly">
+                                    <input type="text" name="batchName" id="batchName" v-model="form.batchName" readonly="readonly">
                                     <img src="" alt="" style="position:absolute;top:10px;right:10px;">
                                     <input type="hidden" name="batchCode" id="batchCode" value="" readonly="readonly">
                                 </div>
@@ -25,7 +25,7 @@
                             <li style="width:30%">
                                 <span>队列名称</span>
                                 <div style="width:65%;position:relative">
-                                    <input type="text" name="queueName" id="queueName" readonly="readonly">
+                                    <input type="text" name="queueName" id="queueName" v-model="form.queueName" readonly="readonly">
                                     <img src="" alt="" style="position:absolute;top:10px;right:10px;">
                                 </div>
                             </li>
@@ -33,20 +33,20 @@
                                 <span style="margin-right: 0px">预先机台数<img src="" alt=""></span>
                                 <span style="color: red;">*</span>
                                 <div style="width:65%">
-                                    <input type="number" name="pcCount" id="pcCount" placeholder="请填写数字">
+                                    <input type="number" name="pcCount" id="pcCount" v-model="form.pcCount" placeholder="请填写数字">
                                 </div>
                             </li>
                             <li style="width:37%">
                                 <span style="width:23%;">选房日期</span>
                                 <div style="width:70%;position:relative">
-                                    <input type="text" name="chooseDate" id="chooseDate" readonly="readonly">
+                                    <input type="text" name="chooseDate" id="chooseDate"  v-model="form.chooseDate" readonly="readonly">
                                     <img src="" alt="" style="position:absolute;top:10px;right:10px;">
                                 </div>
                             </li>
                             <li style="width:30%">
                                 <span>选房时间</span>
                                 <div style="width:65%;position:relative">
-                                    <input type="text" name="startTime" id="startTime" readonly="readonly">
+                                    <input type="text" name="startTime" id="startTime" v-model="form.endTime" readonly="readonly">
                                     <img src="" alt="" style="position:absolute;top:10px;right:10px;">
                                 </div>
                             </li>
@@ -69,7 +69,7 @@
                                 <span style="margin-right: 0px">预选房最大套数</span>
                                 <span style="color: red;">*</span>
                                 <div style="width:44%">
-                                    <input type="number" name="maxChoosen" id="maxChoosen" placeholder="请填写数字">
+                                    <input type="number" name="maxChoosen" id="maxChoosen" v-model="form.maxChoosen" placeholder="请填写数字">
                                 </div>
                             </li>
                         </ul>
@@ -83,13 +83,13 @@
                                 <span style="width:90px;margin-right:0px;">当前签到范围</span>
                                 <span style="color:red;margin-right:20px">*</span>
                                 <div style="width:150px">
-                                    <input type="number" name="signFrom" id="signFrom" placeholder="请填写数字">
+                                    <input type="number" name="signFrom" id="signFrom" v-model="form.signFrom" placeholder="请填写数字">
                                 </div>
                             </li>
                             <li style="width:180px">
                                 <span style="width:20px;margin:0 10px">至</span>
                                 <div style="width:140px">
-                                    <input type="number" name="signTo" id="signTo" placeholder="请填写数字">
+                                    <input type="number" name="signTo" id="signTo" v-model="form.signTo" placeholder="请填写数字">
                                 </div>
                             </li>
 
@@ -104,13 +104,7 @@
                                 <span class=""></span>
                                 <span>{{item.menuName}}</span>
                                 </template>
-                            </el-submenu>
-                            
-                            <!-- <el-submenu v-for="(item,index)  in menus" :key="index" index="1">
-                                <div>{{index}}---{{item.menuName}}</div>
-                            </el-submenu> -->
-                
-                        
+                            </el-submenu>                      
                             </el-menu>
                         </el-col>
                     </div>
@@ -123,40 +117,55 @@
  
 <script>
  export default {
+    name:'Games',
     data() {
       return {
+        form:{
+            batchCode:'',
+            batchName:'',
+            chooseDate:'',
+            drawSort:'',
+            endTime:'',
+            maxChoosen:'',
+            pcCount:'',
+            queueName:'',
+            sceneNo:'',
+            signFrom:'',
+            signTo:'',
+            startTime:'',
+            status:'',
+        },
         menus:[
                 {
                   menuName:'场次管理',
                   imgSrc:'',
-                  
                 },
                 {
                   menuName:'签到情况',
                   imgSrc:'',
-                  
                 },
                 {
                   menuName:'选房队列',
                   imgSrc:'',
-                  
                 },
                 {
                   menuName:'过程材料',
                   imgSrc:'',
-                  
                 },
-                
             ]
-        
       };
     },
-    mounted:function (){
-        
+    mounted:function (){  
     },
     methods: {
-        
-    }
+    },
+    created(){
+         var params = this.$route.params;
+         this.form.batchName = params.batchName;
+         this.form.chooseDate = params.date1;
+         this.form.endTime = params.date2;
+         this.form.queueName = params.queueName;
+     },
     
   };
 </script>

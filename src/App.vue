@@ -1,12 +1,10 @@
 <template>
   <div id="app">
     <router-view/>
-    <Pop v-if="isPop"></Pop>
   </div>
 </template>
 
 <script>
-import Pop from '@/components/pop'
 export default {
   name: 'App',
   data() {
@@ -20,7 +18,7 @@ export default {
      
   },
   components:{
-              Pop:Pop
+             
         }
 }
 </script>
